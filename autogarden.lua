@@ -26,7 +26,6 @@ button.Font = Enum.Font.GothamBold
 button.TextColor3 = Color3.new(0, 0, 0)
 button.Parent = screenGui
 
--- Dragging behavior
 local dragging = false
 local dragStart, startPos
 
@@ -62,7 +61,6 @@ UserInputService.InputEnded:Connect(function(input)
     end
 end)
 
--- Button click
 button.MouseButton1Click:Connect(function()
     giveInfiniteShekels()
 end)
