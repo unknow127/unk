@@ -2,30 +2,25 @@ local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 
 local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
 
-local function giveInfiniteShekels()
-    local stats = player:FindFirstChild("leaderstats")
-    if stats and stats:FindFirstChild("Shekels") then
-        stats.Shekels.Value = math.huge
-    else
-        warn("Shekels stat not found")
-    end
-end
-
+-- GUI Setup
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "InfiniteShekelsGUI"
-screenGui.Parent = player:WaitForChild("PlayerGui")
+screenGui.ResetOnSpawn = false
+screenGui.Parent = playerGui
 
 local button = Instance.new("TextButton")
 button.Size = UDim2.new(0, 160, 0, 50)
-button.Position = UDim2.new(0, 10, 0, 60)
-button.Text = "💰 Infinite Shekels"
+button.Position = UDim2.new(0, 10, 0, 20) -- moved higher
+button.Text = "💰 +100K Shekels"
 button.BackgroundColor3 = Color3.fromRGB(255, 215, 0)
 button.TextScaled = true
 button.Font = Enum.Font.GothamBold
 button.TextColor3 = Color3.new(0, 0, 0)
 button.Parent = screenGui
 
+-- Dragging Function
 local dragging = false
 local dragStart, startPos
 
@@ -61,6 +56,17 @@ UserInputService.InputEnded:Connect(function(input)
     end
 end)
 
+-- Add Shekels on Click
+local function addShekels(amount)
+    local stats = player:FindFirstChild("leaderstats")
+    if stats and stats:FindFirstChild("Shekels") then
+        stats.Shekels.Value += amount
+    else
+        warn("Shekels stat not found")
+    end
+end
+
 button.MouseButton1Click:Connect(function()
-    giveInfiniteShekels()
+    addShekels(100000)
 end)
+
